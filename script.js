@@ -56,6 +56,7 @@ const displayerController = (() => {
             square.textContent = '';
         });
         count = 0;
+        winnerFound = false;
     };
 
     const checkWinner = () =>{
@@ -88,10 +89,11 @@ const displayerController = (() => {
             console.log(gameBoard.board);
             console.log(count);
             checkWinner();
-            if (winnerFound == true){
-                resetGameboard();
+            if (winnerFound === true){
+                setTimeout(() => resetGameboard(), 1000);
             } else if (count == 9){
-                resetGameboard();
+                //resetGameboard();
+                setTimeout(() => resetGameboard(), 1000);
                 console.log('draw');
             }
         })
