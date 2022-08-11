@@ -15,6 +15,10 @@ body{
     width: 160px;
     height: 160px;
     cursor: pointer;
+    font-size: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .square:hover{
     background-color: rgb(210, 215, 220);
