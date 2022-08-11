@@ -39,15 +39,45 @@ const Player = (symbol) => {
     return {getSymbol}
 }
 
-const gameTracker = (() => {
+const displayerController = (() => {
     const player1 = Player('X');
     const player2 = Player('O');
     let count = 0;
+    let winnerFound = false;
 
     const getCurrentPlayerSymbol = () => {
         if (count % 2 === 1) return player1.getSymbol()
         else return player2.getSymbol()
     };
+    
+    const resetGameboard = () => {
+        gameBoard.reset();
+        squares.forEach((square) => {
+            square.textContent = '';
+        });
+        count = 0;
+    };
+
+    const checkWinner = () =>{
+        const winningCase =[
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6],
+        ];
+        winningCase.forEach((eachCase) => {
+            if (gameBoard.board[eachCase[0]] == getCurrentPlayerSymbol() 
+            && gameBoard.board[eachCase[1]] == getCurrentPlayerSymbol()
+            && gameBoard.board[eachCase[2]] == getCurrentPlayerSymbol()){
+                winnerFound = true;
+                console.log(`Player ${getCurrentPlayerSymbol()} is the winner`);
+            }
+        })
+    }
 
     const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
@@ -57,6 +87,14 @@ const gameTracker = (() => {
             square.textContent = getCurrentPlayerSymbol();
             console.log(gameBoard.board);
             console.log(count);
+            checkWinner();
+            if (winnerFound == true){
+                resetGameboard();
+            } else if (count == 9){
+                resetGameboard();
+                console.log('draw');
+            }
         })
-    })
+    });
+
 })();
