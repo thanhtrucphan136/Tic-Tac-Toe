@@ -1,0 +1,21 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gameboard{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    border: 1px solid black;
+    width: 484px;
+    
+}
+.square{
+    border: 1px solid black;
+    width: 160px;
+    height: 160px;
+    cursor: pointer;
+}
+.square:hover{
+    background-color: rgb(210, 215, 220);
+}
