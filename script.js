@@ -57,6 +57,7 @@ const displayerController = (() => {
         });
         count = 0;
         winnerFound = false;
+        playerTurn.innerHTML = 'Player X\'s turn';
     };
 
     const checkWinner = () =>{
@@ -79,10 +80,11 @@ const displayerController = (() => {
             }
         })
     }
-
+    const playerTurn = document.getElementById('turn-message');
     const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
         square.addEventListener('click', () =>{
+            playerTurn.innerHTML = `Player ${getCurrentPlayerSymbol()}'s turn`;
             count +=1;
             gameBoard.setSquare(index, getCurrentPlayerSymbol());
             square.textContent = getCurrentPlayerSymbol();
@@ -92,7 +94,6 @@ const displayerController = (() => {
             if (winnerFound === true){
                 setTimeout(() => resetGameboard(), 1000);
             } else if (count == 9){
-                //resetGameboard();
                 setTimeout(() => resetGameboard(), 1000);
                 console.log('draw');
             }
