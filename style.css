@@ -3,7 +3,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-.gameboard{
+.squares{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     border: 1px solid black;
