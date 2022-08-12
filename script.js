@@ -50,14 +50,28 @@ const displayerController = (() => {
     let winnerFound = false;
 
     const getCurrentPlayerSymbol = () => {
-        if (count % 2 === 1) return player1.getSymbol()
+        if (count % 2 === 1) return player1.getSymbol();
         else return player2.getSymbol()
     };
+
+    const getColor = (symbol, square) => {
+        if (symbol === 'X') square.style.color = 'green';
+        else square.style.color = 'red';
+    }
+    //disable click on square that is filled
+    const disableClick = (square) => {
+        square.style.pointerEvents = 'none';
+    }
+    //enable click on square
+    const enableClick = (square) => {
+        square.style.pointerEvents = 'auto';
+    }
     
     const resetGameboard = () => {
         gameBoard.reset();
         squares.forEach((square) => {
             square.textContent = '';
+            enableClick(square);
         });
         count = 0;
         winnerFound = false;
@@ -105,6 +119,8 @@ const displayerController = (() => {
             count +=1;
             gameBoard.setSquare(index, getCurrentPlayerSymbol());
             square.textContent = getCurrentPlayerSymbol();
+            disableClick(square);
+            getColor(square.textContent, square);
             console.log(gameBoard.board);
             console.log(count);
             checkWinner();
