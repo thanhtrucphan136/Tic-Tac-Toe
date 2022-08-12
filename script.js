@@ -42,6 +42,10 @@ const Player = (symbol) => {
 const displayerController = (() => {
     const player1 = Player('X');
     const player2 = Player('O');
+    const popup = document.querySelector('.popup-container');
+    const overlay = document.querySelector('.overlay');
+    const winnerMessage = document.getElementById('winner-message');
+    const restartBtn = document.getElementById('restart-btn');
     let count = 0;
     let winnerFound = false;
 
@@ -77,9 +81,22 @@ const displayerController = (() => {
             && gameBoard.board[eachCase[2]] == getCurrentPlayerSymbol()){
                 winnerFound = true;
                 console.log(`Player ${getCurrentPlayerSymbol()} is the winner`);
+                winnerMessage.textContent = `Player ${getCurrentPlayerSymbol()} is the winner`;
             }
         })
     }
+    
+    const openPopup = () => {
+        popup.classList.add('popup-container-open');
+        overlay.classList.add('overlay-active');
+    }
+    const closePopup = () => {
+        popup.classList.remove('popup-container-open');
+        overlay.classList.remove('overlay-active');
+    }
+    restartBtn.addEventListener('click', closePopup);
+
+    //game play here
     const playerTurn = document.getElementById('turn-message');
     const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
@@ -92,10 +109,13 @@ const displayerController = (() => {
             console.log(count);
             checkWinner();
             if (winnerFound === true){
-                setTimeout(() => resetGameboard(), 1000);
+                openPopup();
+                setTimeout(() => resetGameboard(), 1500);
             } else if (count == 9){
-                setTimeout(() => resetGameboard(), 1000);
-                console.log('draw');
+                winnerMessage.textContent = 'it is a draw!';
+                openPopup();
+                setTimeout(() => resetGameboard(), 1500);
+                console.log('draw');  
             }
         })
     });
