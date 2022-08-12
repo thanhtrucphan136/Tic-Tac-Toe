@@ -42,6 +42,8 @@ const Player = (symbol) => {
 const displayerController = (() => {
     const player1 = Player('X');
     const player2 = Player('O');
+    const playerTurn = document.getElementById('turn-message');
+    const squares = document.querySelectorAll('.square');
     const popup = document.querySelector('.popup-container');
     const overlay = document.querySelector('.overlay');
     const winnerMessage = document.getElementById('winner-message');
@@ -55,8 +57,8 @@ const displayerController = (() => {
     };
 
     const getColor = (symbol, square) => {
-        if (symbol === 'X') square.style.color = 'green';
-        else square.style.color = 'red';
+        if (symbol === 'X') square.style.color = '#56a7a7';
+        else square.style.color = '#d45a5a';
     }
     //disable click on square that is filled
     const disableClick = (square) => {
@@ -76,6 +78,7 @@ const displayerController = (() => {
         count = 0;
         winnerFound = false;
         playerTurn.innerHTML = 'Player X\'s turn';
+        playerTurn.style.color = '#217e7e';
     };
 
     const checkWinner = () =>{
@@ -96,6 +99,8 @@ const displayerController = (() => {
                 winnerFound = true;
                 console.log(`Player ${getCurrentPlayerSymbol()} is the winner`);
                 winnerMessage.textContent = `Player ${getCurrentPlayerSymbol()} is the winner`;
+                if (getCurrentPlayerSymbol() == 'X') winnerMessage.style.color = '#217e7e';
+                else winnerMessage.style.color = '#d45a5a';
             }
         })
     }
@@ -107,14 +112,15 @@ const displayerController = (() => {
     const closePopup = () => {
         popup.classList.remove('popup-container-open');
         overlay.classList.remove('overlay-active');
+        resetGameboard();
     }
     restartBtn.addEventListener('click', closePopup);
 
     //game play here
-    const playerTurn = document.getElementById('turn-message');
-    const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
         square.addEventListener('click', () =>{
+            if (getCurrentPlayerSymbol() == 'X') playerTurn.style.color = '#217e7e';
+                else playerTurn.style.color = '#d45a5a';
             playerTurn.innerHTML = `Player ${getCurrentPlayerSymbol()}'s turn`;
             count +=1;
             gameBoard.setSquare(index, getCurrentPlayerSymbol());
@@ -126,11 +132,10 @@ const displayerController = (() => {
             checkWinner();
             if (winnerFound === true){
                 openPopup();
-                setTimeout(() => resetGameboard(), 1500);
             } else if (count == 9){
-                winnerMessage.textContent = 'it is a draw!';
+                winnerMessage.textContent = 'It is a draw!';
+                winnerMessage.style.color = '#ec6a6a';
                 openPopup();
-                setTimeout(() => resetGameboard(), 1500);
                 console.log('draw');  
             }
         })
