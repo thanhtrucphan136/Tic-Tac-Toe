@@ -55,7 +55,6 @@ h1{
     transform: translate(-50%, -50%) scale(0.1);
     left: 50%;
     top: 0;
-    
 }
 .popup-container-open{
     left: 50%;
@@ -95,6 +94,7 @@ h1{
     background-color: #3c9595;
     color: #b2f2f2;
     cursor: pointer;
+    font-size: 20px;
 }
 #restart-btn:hover{
     background-color: #3aa6a6;
@@ -109,12 +109,52 @@ footer{
     align-self: end;
     margin-top: 70px;
  }
- .github{
+.github{
      width: 20px;
      height: 20px;
      transition: transform 0.3s ease-in-out;
      margin-left: 3px;
- }
- .github:hover{
-     transform: scale(1.1) rotate(360deg);
- }
+}
+.github:hover{
+     transform: scale(1.5) rotate(360deg);
+}
+@media only screen and (max-width:1000px) {
+    #gameover-popup{
+        font-size: 30px;
+        padding: 0px;
+    }
+    .popup-container{
+        width: 350px;
+    }
+    #restart-btn{
+        width: 80px;
+        height: 40px;
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    h1{
+        font-size: 60px;
+    }
+    #turn-message{
+        font-size: 30px;
+    }
+    .square{
+        width: 100px;
+        height: 100px;
+        font-size: 90px;
+    }
+    #gameover-popup{
+        font-size: 20px;
+        padding: 0px;
+    }
+    .popup-container{
+        width: 210px;
+    }
+    #restart-btn{
+        width: 70px;
+        height: 30px;
+        font-size: 15px;
+    }
+}
