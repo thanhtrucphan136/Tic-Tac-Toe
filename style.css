@@ -95,6 +95,9 @@ h1{
     color: #b2f2f2;
     cursor: pointer;
     font-size: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 #restart-btn:hover{
     background-color: #3aa6a6;
