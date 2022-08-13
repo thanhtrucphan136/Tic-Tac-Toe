@@ -15,17 +15,13 @@ const gameBoard = (() =>{
         board[index] = symbol;
     };
 
-    const getSquare = (index) => {
-        return board[index];
-    };
-
     const reset = () => {
         for (let i = 0; i < board.length; i++){
             board[i] = '';
         }
     };
 
-    return {board ,getSquare, reset, setSquare}
+    return {board, reset, setSquare}
 })();
 
 //player object
@@ -49,7 +45,6 @@ const displayerController = (() => {
     const winnerMessage = document.getElementById('winner-message');
     const restartBtn = document.getElementById('restart-btn');
     let count = 0;
-    let winnerFound = false;
 
     const getCurrentPlayerSymbol = () => {
         if (count % 2 === 1) return player1.getSymbol();
@@ -93,14 +88,21 @@ const displayerController = (() => {
             [2,4,6],
         ];
         winningCase.forEach((eachCase) => {
-            if (gameBoard.board[eachCase[0]] == getCurrentPlayerSymbol() 
+            if (count == 9 && (gameBoard.board[eachCase[0]] != getCurrentPlayerSymbol() 
+                || gameBoard.board[eachCase[1]] != getCurrentPlayerSymbol()
+                || gameBoard.board[eachCase[2]] != getCurrentPlayerSymbol())){
+                winnerMessage.textContent = 'It is a draw!';
+                winnerMessage.style.color = '#ec6a6a';
+                openPopup();
+                console.log('draw');  
+            }else if (gameBoard.board[eachCase[0]] == getCurrentPlayerSymbol() 
             && gameBoard.board[eachCase[1]] == getCurrentPlayerSymbol()
             && gameBoard.board[eachCase[2]] == getCurrentPlayerSymbol()){
-                winnerFound = true;
                 console.log(`Player ${getCurrentPlayerSymbol()} is the winner`);
                 winnerMessage.textContent = `Player ${getCurrentPlayerSymbol()} is the winner`;
                 if (getCurrentPlayerSymbol() == 'X') winnerMessage.style.color = '#217e7e';
                 else winnerMessage.style.color = '#d45a5a';
+                openPopup();
             }
         })
     }
@@ -130,15 +132,6 @@ const displayerController = (() => {
             console.log(gameBoard.board);
             console.log(count);
             checkWinner();
-            if (winnerFound === true){
-                openPopup();
-            } else if (count == 9){
-                winnerMessage.textContent = 'It is a draw!';
-                winnerMessage.style.color = '#ec6a6a';
-                openPopup();
-                console.log('draw');  
-            }
         })
     });
-
 })();
